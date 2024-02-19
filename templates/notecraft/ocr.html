@@ -1,0 +1,7 @@
+{% extends 'notecraft/layout.html' %} {% block body %}
+<form action="{% url 'text2QNA' %}" method="post">
+    {% csrf_token %}
+    <textarea style="width: 1300px" rows="40" name="ai_prompt">{{ text }}</textarea>
+    <input type="submit">
+</form>
+{% endblock %}

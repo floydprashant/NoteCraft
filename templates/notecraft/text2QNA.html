@@ -1,0 +1,29 @@
+{% extends 'notecraft/layout.html' %} {% block body %}
+{% if questions%}
+    <div>{{questions.summary}}</div>
+    <br>
+    {% for note in questions.Notes %}
+        <div>{{note}}</div>
+    {% endfor %}
+    <br>
+    {% for key,value in questions.FC.items %}
+        <div>{{key}} : {{value}}</div>
+    {% endfor %}
+    <br>
+    {% for key,value in questions.MCQ.items %}
+        <div>{{key}}</div>
+        {% for key1,value1 in value.items %}
+            <div>{{key1}}</div>
+        {% endfor%}
+        <br>
+    {% endfor%}
+    <br>
+    {% for key,value in questions.TOF.items %}
+        <div>{{key}}</div>
+    {% endfor%}
+{% else %}
+    <div>Some error occured.</div>
+{% endif %}
+
+<div>{{count}} tries taken.</div>
+{% endblock %}
