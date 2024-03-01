@@ -1,5 +1,7 @@
 {% extends 'notecraft/layout.html' %} {% block body %}
 {% if questions%}
+    <div>{{questions.title}}</div>
+    <br>
     <div>{{questions.summary}}</div>
     <br>
     {% for note in questions.Notes %}
@@ -24,6 +26,8 @@
 {% else %}
     <div>Some error occured.</div>
 {% endif %}
-
+<br><br>
 <div>{{count}} tries taken.</div>
+<br><br>
+<div>{{response}}</div>
 {% endblock %}

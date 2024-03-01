@@ -1,8 +1,11 @@
-{% extends 'notecraft/layout.html' %}
-{% block body %}
-    <form action="{% url 'image2text' %}" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <input type="file" name="images" accept="image/*, .pdf" multiple>
-        <input type="submit">
-    </form>
+{% extends 'notecraft/layout.html' %} {% block body %}
+<form
+    action="{% url 'image2text' %}"
+    method="post"
+    enctype="multipart/form-data"
+>
+    {% csrf_token %}
+    <input type="file" name="images" accept="image/*" multiple />
+    <input type="submit" />
+</form>
 {% endblock %}
