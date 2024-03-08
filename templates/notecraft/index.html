@@ -8,4 +8,15 @@
     <input type="file" name="images" accept="image/*" multiple />
     <input type="submit" />
 </form>
+<div>
+    <div>Your Study Materials</div>
+    {% for chapter in chapters %}
+    <div>
+        <a href="{% url 'chapter' %}?studMat={{ chapter.id|urlencode }}">{{ chapter.title }}</a>
+    </div>
+    {% endfor %}
+</div>
+<form action="{% url 'logout'%}">
+    <button type="submit">Logout</button>
+</form>
 {% endblock %}

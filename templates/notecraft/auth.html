@@ -1,0 +1,93 @@
+{% extends 'notecraft/layout.html' %} {% block body %}
+<div>
+    <button id="register" onclick="hideLogin()">Sign Up</button>
+    <button id="login" onclick="hideRegister()">Sign In</button>
+</div>
+
+<form id="registerUser">
+    <input type="text" name="username" id="regUname" />
+    <input type="email" name="email" id="regEmail" />
+    <input type="password" name="password" id="regPass" />
+    <input type="password" name="cofirmPassword" id="confirmPass" />
+    <button type="button" onclick="registerUser()">Sign Up</button>
+</form>
+
+<form id="loginUser" hidden>
+    <input type="text" name="username" id="logUname" />
+    <input type="password" name="password" id="logPass" />
+    <button type="button" onclick="loginUser()">Sign In</button>
+</form>
+<script>
+    const register = document.querySelector("#registerUser");
+    const login = document.querySelector("#loginUser");
+
+    function registerUser() {
+        const uname = document.querySelector("#regUname");
+        const email = document.querySelector("#regEmail");
+        const pass = document.querySelector("#regPass");
+        const confirmPass = document.querySelector("#confirmPass");
+        if (pass.value === confirmPass.value) {
+            fetch("/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": "{{csrf_token}}",
+                },
+                body: JSON.stringify({
+                    username: uname.value,
+                    email: email.value,
+                    password: pass.value,
+                }),
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log(data);
+                    if (data.success == true) {
+                        location.reload(true);
+                    } else {
+                        alert("Username already exists");
+                    }
+                });
+        } else {
+            alert("Passwords do not match");
+        }
+    }
+
+    function loginUser() {
+        const uname = document.querySelector("#logUname");
+        const pass = document.querySelector("#logPass");
+        fetch("/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": "{{csrf_token}}",
+            },
+            body: JSON.stringify({
+                username: uname.value,
+                password: pass.value,
+            }),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+                if (data.success == true) {
+                    location.reload(true);
+                } else {
+                    alert(data.Error);
+                }
+            });
+    }
+
+    function hideRegister() {
+        login.hidden = false;
+        register.hidden = true;
+        register.reset();
+    }
+
+    function hideLogin() {
+        register.hidden = false;
+        login.hidden = true;
+        login.reset();
+    }
+</script>
+{% endblock %}

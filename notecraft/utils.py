@@ -5,7 +5,7 @@ import json
 
 env_vars = dotenv_values("./.env")
 
-def OCR_tool(file):
+def ExtractText(file):
     api_url = "https://api.ocr.space/parse/image"
     payload = {
         "isOverlayRequired": False,
@@ -31,19 +31,19 @@ def OCR_tool(file):
     return parsed_results
 
 
-def AI_tool(prompt):
+def GenStudyMaterial(prompt):
     client = OpenAI(api_key=env_vars["OPENAI_API_KEY"])
     completion = client.chat.completions.create(
         model="gpt-3.5-turbo-0125",
         messages=[
             {
                 "role": "system",
-                "content": """You are a creative teacher tasked with summarizing a body of text, giving it a suitable title, extracting all the important notes, creating flashcards (FC) of all the key information, generating multiple choice questions(MCQ) with hard choices, and generating true or false(TOF) questions based on the provided content. The text may contain spelling and grammatical errors, as well as extraneous text like author names or unit numbers due to OCR scanning of textbook images. Your objective is to correct any errors, condense the information, and create structured output in JSON format for your students.
+                "content": """You are a creative teacher tasked with summarizing a body of text, giving it a short and sweet title, extracting all the important notes, creating flashcards (FC) of all the key information, generating multiple choice questions(MCQ) with hard choices, and generating true or false(TOF) questions based on the provided content. The text may contain spelling and grammatical errors, as well as extraneous text like author names or unit numbers due to OCR scanning of textbook images. Your objective is to correct any errors, condense the information, and create structured output in JSON format for your students.
 
                 Output Format:
                 {
-                    "title": "Title of the text",
-                    "summary": "SUmmary of the text",
+                    "title": "Short title for the text",
+                    "summary": "Summary of the text",
                     "Notes" : ["note 1", "note 2", "note 3",....],
                     "FC": {"Front": "Back"},
                     "MCQ": {"Question" : {"choice1": true/false, "choice2": true/false, "choice3": true/false, "choice4": true/false},

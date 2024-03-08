@@ -1,0 +1,26 @@
+{% extends 'notecraft/layout.html' %} {% block body %} {% if studMat %}
+<div>{{studMat.title}}</div>
+<br />
+<div>{{studMat.summary}}</div>
+<br />
+{% for note in studMat.notes %}
+<div>{{note}}</div>
+{% endfor %}
+<br />
+{% for key,value in studMat.flashcards.items %}
+<div>{{key}} : {{value}}</div>
+{% endfor %}
+<br />
+{% for key,value in studMat.mcqs.items %}
+<div>{{key}}</div>
+{% for key1,value1 in value.items %}
+<div>{{key1}}</div>
+{% endfor%}
+<br />
+{% endfor%}
+<br />
+{% for key,value in studMat.tofs.items %}
+<div>{{key}}</div>
+{% endfor%} {% else %}
+<div>Some error occured.</div>
+{% endif %} {% endblock %}
