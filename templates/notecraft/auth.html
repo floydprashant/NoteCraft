@@ -1,22 +1,27 @@
 {% extends 'notecraft/layout.html' %} {% block body %}
-<div>
-    <button id="register" onclick="hideLogin()">Sign Up</button>
-    <button id="login" onclick="hideRegister()">Sign In</button>
+<div class="w-full h-full flex items-center justify-center">
+    <div class="w-96 flex flex-col gap-5">
+        <div class="flex justify-around">
+            <button id="register" onclick="hideLogin()" class="text-2xl font-bold">Sign Up</button>
+            <button id="login" onclick="hideRegister()" class="text-2xl font-bold">Sign In</button>
+        </div>
+
+        <form id="registerUser" class="flex flex-col gap-5">
+            <input type="text" name="username" id="regUname" class="input_box" />
+            <input type="email" name="email" id="regEmail" class="input_box" />
+            <input type="password" name="password" id="regPass" class="input_box"/>
+            <input type="password" name="cofirmPassword" id="confirmPass" class="input_box"/>
+            <button type="button" onclick="registerUser()" class="font-semibold text-xl w-max m-auto">Sign Up</button>
+        </form>
+
+        <form id="loginUser" class="flex flex-col hidden gap-3">
+            <input type="text" name="username" id="logUname" class="input_box"/>
+            <input type="password" name="password" id="logPass" class="input_box"/>
+            <button type="button" onclick="loginUser()">Sign In</button>
+        </form>
+    </div>
 </div>
 
-<form id="registerUser">
-    <input type="text" name="username" id="regUname" />
-    <input type="email" name="email" id="regEmail" />
-    <input type="password" name="password" id="regPass" />
-    <input type="password" name="cofirmPassword" id="confirmPass" />
-    <button type="button" onclick="registerUser()">Sign Up</button>
-</form>
-
-<form id="loginUser" hidden>
-    <input type="text" name="username" id="logUname" />
-    <input type="password" name="password" id="logPass" />
-    <button type="button" onclick="loginUser()">Sign In</button>
-</form>
 <script>
     const register = document.querySelector("#registerUser");
     const login = document.querySelector("#loginUser");
@@ -79,14 +84,14 @@
     }
 
     function hideRegister() {
-        login.hidden = false;
-        register.hidden = true;
+        login.classList.remove('hidden')
+        register.classList.add('hidden')
         register.reset();
     }
 
     function hideLogin() {
-        register.hidden = false;
-        login.hidden = true;
+        login.classList.add('hidden')
+        register.classList.remove('hidden')
         login.reset();
     }
 </script>
